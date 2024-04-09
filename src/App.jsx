@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
@@ -7,6 +7,7 @@ import "./assets/style.css";
 
 function App() {
   const [recipes, setRecipes] = useState([]);
+  const ourResult = useMemo(() => filterRecipesComputeIntensive, []);
   useEffect(() => {
     fetch("https://api.sampleapis.com/recipes/recipes")
       .then((res) => {
@@ -24,12 +25,20 @@ function App() {
     }
     return list.filter((word) => word.name.split(" ").length <= 4);
   }
-  const filteredRecipes = filterRecipesComputeIntensive(recipes);
+
+  function deleteFromArray(id) {
+    setRecipes(recipes.filter((recipes) => recipes.id !== id));
+  }
+  // const filteredRecipes = filterRecipesComputeIntensive(recipes);
   return (
     <>
       <Navbar />
       {recipes.map((data) => (
-        <RecipeContainer recipe={data} key={data.id} />
+        <RecipeContainer
+          recipe={data}
+          key={data.id}
+          deleteFromArray={deleteFromArray}
+        />
       ))}
       <Footer />
     </>

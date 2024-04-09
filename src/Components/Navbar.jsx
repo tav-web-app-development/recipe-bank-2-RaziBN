@@ -17,6 +17,11 @@ function Navbar() {
             <li>
               <a href="#">Contact</a>
             </li>
+            <li>
+              <a onClick={() => window.scrollTo(0, document.body.scrollHeight)}>
+                End of the page
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
