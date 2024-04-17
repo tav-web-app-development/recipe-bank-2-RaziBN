@@ -1,4 +1,7 @@
-function Navbar() {
+/* eslint-disable react/prop-types */
+import { Link } from "react-router-dom";
+
+function Navbar({ bottomRef }) {
   return (
     <>
       <div className="navbar">
@@ -18,8 +21,19 @@ function Navbar() {
               <a href="#">Contact</a>
             </li>
             <li>
-              <a onClick={() => window.scrollTo(0, document.body.scrollHeight)}>
-                End of the page
+              <Link to="/newRecipe">Add New Recipe</Link>
+            </li>
+            <li>
+              <a
+                onClick={() => {
+                  window.scrollTo({
+                    // eslint-disable-next-line react/prop-types
+                    top: bottomRef.current.offsetTop,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                End to the Page
               </a>
             </li>
           </ul>
